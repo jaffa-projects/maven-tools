@@ -62,7 +62,7 @@ import org.apache.maven.plugins.annotations.*;
 
 import org.apache.maven.project.MavenProject;
 import org.jaffa.plugins.definitions.Definition;
-import org.jaffa.plugins.definitions.ICustomResourceDefinition;
+import org.jaffa.plugins.definitions.CustomResourceDefinition;
 import org.jaffa.plugins.definitions.ResourceDefinitions;
 import org.jaffa.plugins.util.FileFinder;
 import org.jaffa.plugins.util.Fragments;
@@ -109,10 +109,11 @@ public class FragmentMergeMojo extends AbstractMojo{
     File targetDirectory;
 
     /**
-     * fully qualified className of the Custom Resource Definition
+     *Custom Resource Definition
      */
     @Parameter
-    String customResourceDefinitionClass;
+    CustomResourceDefinition[] customResourceDefinitions;
+
 
     /**
      * Skip Listed configuration files
@@ -151,19 +152,15 @@ public class FragmentMergeMojo extends AbstractMojo{
 
                 ResourceDefinitions resourceDefinitions = new ResourceDefinitions();
 
-                if(customResourceDefinitionClass!=null && customResourceDefinitionClass.length() > 0){
-                    try {
-                        ICustomResourceDefinition customResourceDefinition = (ICustomResourceDefinition) Class.forName(customResourceDefinitionClass).newInstance();
-
-                        if(customResourceDefinition.getFragmentDefinitions()!=null) {
-                            resourceDefinitions.addFragmentDefinition(customResourceDefinition.getFragmentDefinitions());
+                if(customResourceDefinitions!=null && customResourceDefinitions.length > 0){
+                    for(CustomResourceDefinition crDef : customResourceDefinitions){
+                        Definition fragmentDefinition = crDef.getCustomResourceFragmentDefinition();
+                        Definition fileDefinition = crDef.getCustomResourceFragmentDefinition();
+                        if(fragmentDefinition!=null){
+                            resourceDefinitions.addFragmentDefinition(fragmentDefinition);
+                        }else if (fileDefinition!=null){
+                            resourceDefinitions.addFileDefinition(fileDefinition);
                         }
-                        if(customResourceDefinition.getFileDefinitions()!=null) {
-                            resourceDefinitions.addFileDefinitions(customResourceDefinition.getFileDefinitions());
-                        }
-
-                    } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                        getLog().error("Unable to instantiate custom resource definition class", e);
                     }
                 }
 
