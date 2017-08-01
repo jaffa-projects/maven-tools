@@ -148,11 +148,17 @@ public class ResourceDefinitions {
         fileDefinitions.addAll(definitions);
     }
 
-    public void addFragmentDefinition(List<Definition> definitions){
+    public void addFileDefinition(Definition definition){
+        fileDefinitions.add(definition);
+    }
+
+    public void addFragmentDefinitions(List<Definition> definitions){
         fragmentDefinitions.addAll(definitions);
     }
 
-
+    public void addFragmentDefinition(Definition definition){
+        fragmentDefinitions.add(definition);
+    }
 
     /**
      * Definition of all the different constants used by FragmentMergeMojo
