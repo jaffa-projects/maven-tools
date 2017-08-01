@@ -38,14 +38,19 @@ Add this fragement to your pom
         <configuration>
         <!-- Optional configuration -->
         <!-- Definition for any additional custom resources to be included in fragment merge -->
+          <customResourceDefinitions>        
             <customResourceDefinition>
               <customResource>alerts</customResource>
               <customResourceFileType>xml</customResourceFileType>
               <!-- customResourceFragmentType is optional, if not included the definition is considered a file under resource -->
               <customResourceFragmentType>xfragment</customResourceFragmentType>
-              <customResourceStartTag><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\n<alerts>\n]]></customResourceStartTag>
-              <customResourceEndTag><![CDATA[\n</alerts>]]></customResourceEndTag>
+              <customResourceStartTag><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+              <alerts>
+              ]]></customResourceStartTag>
+              <customResourceEndTag><![CDATA[
+              </alerts>]]></customResourceEndTag>
             </customResourceDefinition>
+          </customResourceDefinitions>            
           <skipConfigFiles>
           <!-- to completely skip merging jawr files -->
             <skipConfigFile>jawr</skipConfigFile>
