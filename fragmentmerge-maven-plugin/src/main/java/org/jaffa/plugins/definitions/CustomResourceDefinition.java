@@ -139,7 +139,7 @@ public class CustomResourceDefinition {
 
     public Definition getCustomResourceFileDefinition(){
         if(customResourceFragmentType==null) {
-            return new Definition(customResource, customResource + "." + customResourceFileType, customResource + "*." + customResourceFileType, customResourceStartTag, customResourceEndTag);
+            return new Definition(customResource, customResource + "." + customResourceFileType, customResource + "*." + customResourceFileType, "", "");
         }else{
             return null;
         }

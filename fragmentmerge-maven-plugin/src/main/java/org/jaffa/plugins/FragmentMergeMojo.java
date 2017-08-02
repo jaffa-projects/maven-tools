@@ -155,7 +155,7 @@ public class FragmentMergeMojo extends AbstractMojo{
                 if(customResourceDefinitions!=null && customResourceDefinitions.length > 0){
                     for(CustomResourceDefinition crDef : customResourceDefinitions){
                         Definition fragmentDefinition = crDef.getCustomResourceFragmentDefinition();
-                        Definition fileDefinition = crDef.getCustomResourceFragmentDefinition();
+                        Definition fileDefinition = crDef.getCustomResourceFileDefinition();
                         if(fragmentDefinition!=null){
                             resourceDefinitions.addFragmentDefinition(fragmentDefinition);
                         }else if (fileDefinition!=null){
