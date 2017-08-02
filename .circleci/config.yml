@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    
+    working_directory: /maven-tools
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+
+    steps:
+    
+      - run: mvn package
+      
+      - store_artifacts:
+          path: /maven-tools/fragmentmerge-maven-plugin/target
