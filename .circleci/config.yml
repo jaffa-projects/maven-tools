@@ -1,15 +1,19 @@
 version: 2
 jobs:
   build:
-    
-    working_directory: ~/maven-tools
-
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+        - image: python:3.6.0
+        
+        
+    working_directory: /tmp
 
     steps:
-    
-      - run: mvn package
-      
+      - run:
+          name: Creating Artifacts
+          command: |
+            echo "fragment-merge-plugin artifact file" > /tmp/artifacts;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts;
+
       - store_artifacts:
-          path: /tmp/fragmentmerge-maven-plugin
+          path: /tmp/artifacts
