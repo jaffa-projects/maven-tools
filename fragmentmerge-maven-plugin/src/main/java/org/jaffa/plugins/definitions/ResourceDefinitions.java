@@ -65,6 +65,9 @@ public class ResourceDefinitions {
     /** List that holds file definitions for each configuration element **/
     public List<Definition> fileDefinitions = new ArrayList<>();
 
+    /** List that holds resourceDirectories for each configuration element **/
+    public List<String> resourceDirectories = new ArrayList<>();
+
     public ResourceDefinitions(){
         buildDefinitions();
     }
@@ -158,6 +161,19 @@ public class ResourceDefinitions {
 
     public void addFragmentDefinition(Definition definition){
         fragmentDefinitions.add(definition);
+    }
+
+
+    public List<String> getResourceDirectories() {
+        return resourceDirectories;
+    }
+
+    public void addResourceDirectories(List<String> directories) {
+        resourceDirectories.addAll(directories);
+    }
+
+    public void addResourceDirectory(String directory) {
+        resourceDirectories.add(directory);
     }
 
     /**

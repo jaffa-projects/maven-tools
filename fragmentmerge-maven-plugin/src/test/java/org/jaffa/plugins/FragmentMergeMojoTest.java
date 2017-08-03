@@ -51,6 +51,7 @@ package org.jaffa.plugins;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -113,6 +114,10 @@ public class FragmentMergeMojoTest extends AbstractMojoTestCase{
         assertNotNull(findEntryInJar(testResourceFiles, JAFFA_SCHEDULER_CONFIG+"."+XML));
         assertNotNull(findEntryInJar(testResourceFiles, JMS_JNDI_CONFIG+"."+XML));
 
+        //Additional configuration based on customResourceDefinition in pom
+        assertNotNull(Paths.get(testTarget+File.separator+"aop"));
+        assertNotNull(Paths.get(testTarget+File.separator+"rules"));
+
     }
 
     private MavenProject readMavenProject(File pom) throws Exception {
@@ -130,5 +135,6 @@ public class FragmentMergeMojoTest extends AbstractMojoTestCase{
         }
         return null;
     }
+
 }
 
