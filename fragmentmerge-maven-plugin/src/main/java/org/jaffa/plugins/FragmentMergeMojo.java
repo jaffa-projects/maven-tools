@@ -154,6 +154,10 @@ public class FragmentMergeMojo extends AbstractMojo{
 
                 if(customResourceDefinitions!=null && customResourceDefinitions.length > 0){
                     for(CustomResourceDefinition crDef : customResourceDefinitions){
+                        if(Boolean.TRUE.equals(crDef.isDirectory())){
+                            resourceDefinitions.addResourceDirectory(crDef.getCustomResource());
+                            continue;
+                        }
                         Definition fragmentDefinition = crDef.getCustomResourceFragmentDefinition();
                         Definition fileDefinition = crDef.getCustomResourceFileDefinition();
                         if(fragmentDefinition!=null){
@@ -167,6 +171,7 @@ public class FragmentMergeMojo extends AbstractMojo{
                 mergeStrutsDefinitions(resourceDefinitions.getStrutsDefinitions());
                 mergeFragmentDefinitions(resourceDefinitions.getFragmentDefinitions());
                 mergeFileDefinitions(resourceDefinitions.getFileDefinitions());
+                mergeResourceDirectories(resourceDefinitions.getResourceDirectories());
 
                 //cleanup any leftover resource files
                 cleanUpResources(resourceDefinitions.getFileDefinitions());
@@ -175,6 +180,18 @@ public class FragmentMergeMojo extends AbstractMojo{
             getLog().error(io);
         }
         getLog().info("End of Fragment Merging Process");
+    }
+
+    private void mergeResourceDirectories(List<String> directories){
+        for(String directory : directories) {
+            try {
+                Path resourceDir = Paths.get(classesDirectory + File.separator + RESOURCES+File.separator+directory);
+                Path metaInfResourceDir = Paths.get(classesDirectory+META_INF_LOCATION+directory);
+                Files.move(resourceDir, metaInfResourceDir, StandardCopyOption.ATOMIC_MOVE);
+            } catch (IOException io) {
+                getLog().error(io);
+            }
+        }
     }
 
     private void mergeJawrResources(Definition jawrDefinition) throws IOException {

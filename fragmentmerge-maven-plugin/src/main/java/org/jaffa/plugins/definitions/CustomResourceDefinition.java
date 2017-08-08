@@ -88,6 +88,23 @@ public class CustomResourceDefinition {
     @Parameter
     private String customResourceFragmentType;
 
+    /**
+     * Is resource a directory
+     */
+    @Parameter
+    private Boolean directory;
+
+
+    public Boolean isDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(Boolean directory) {
+        this.directory = directory;
+    }
+
+
+
     public String getCustomResource() {
         return customResource;
     }
@@ -155,6 +172,7 @@ public class CustomResourceDefinition {
                 ", customResourceStartTag='" + customResourceStartTag + '\'' +
                 ", customResourceEndTag='" + customResourceEndTag + '\'' +
                 ", customResourceFragmentType='" + customResourceFragmentType + '\'' +
+                ", directory='" + directory + '\'' +
                 '}';
     }
 

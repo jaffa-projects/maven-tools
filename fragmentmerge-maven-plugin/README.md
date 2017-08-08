@@ -50,6 +50,11 @@ Add this fragement to your pom
               <customResourceEndTag><![CDATA[
               </alerts>]]></customResourceEndTag>
             </customResourceDefinition>
+            <!-- Include this to move resource folder under "resources" into META-INF --> 
+            <customResourceDefinition>
+              <directory>true</directory>
+              <customResource>aop</customResource>
+            </customResourceDefinition>            
           </customResourceDefinitions>            
           <skipConfigFiles>
           <!-- to completely skip merging jawr files -->
