@@ -37,8 +37,25 @@ Add this fragement to your pom
         <artifactId>fragmentmerge-maven-plugin</artifactId>
         <configuration>
         <!-- Optional configuration -->
-        <!-- Implementation of ICustomResourceDefinition to include additional definitions for fragment merge process -->
-        <customResourceDefinitionClass>com.abc.CustomResourceDefinition</customResourceDefinitionClass>
+        <!-- Definition for any additional custom resources to be included in fragment merge -->
+          <customResourceDefinitions>        
+            <customResourceDefinition>
+              <customResource>alerts</customResource>
+              <customResourceFileType>xml</customResourceFileType>
+              <!-- customResourceFragmentType is optional, if not included the definition is considered a file under resource -->
+              <customResourceFragmentType>xfragment</customResourceFragmentType>
+              <customResourceStartTag><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+              <alerts>
+              ]]></customResourceStartTag>
+              <customResourceEndTag><![CDATA[
+              </alerts>]]></customResourceEndTag>
+            </customResourceDefinition>
+            <!-- Include this to move resource folder under "resources" into META-INF --> 
+            <customResourceDefinition>
+              <directory>true</directory>
+              <customResource>aop</customResource>
+            </customResourceDefinition>            
+          </customResourceDefinitions>            
           <skipConfigFiles>
           <!-- to completely skip merging jawr files -->
             <skipConfigFile>jawr</skipConfigFile>

@@ -62,7 +62,7 @@ import org.apache.maven.plugins.annotations.*;
 
 import org.apache.maven.project.MavenProject;
 import org.jaffa.plugins.definitions.Definition;
-import org.jaffa.plugins.definitions.ICustomResourceDefinition;
+import org.jaffa.plugins.definitions.CustomResourceDefinition;
 import org.jaffa.plugins.definitions.ResourceDefinitions;
 import org.jaffa.plugins.util.FileFinder;
 import org.jaffa.plugins.util.Fragments;
@@ -109,10 +109,11 @@ public class FragmentMergeMojo extends AbstractMojo{
     File targetDirectory;
 
     /**
-     * fully qualified className of the Custom Resource Definition
+     *Custom Resource Definition
      */
     @Parameter
-    String customResourceDefinitionClass;
+    CustomResourceDefinition[] customResourceDefinitions;
+
 
     /**
      * Skip Listed configuration files
@@ -151,25 +152,26 @@ public class FragmentMergeMojo extends AbstractMojo{
 
                 ResourceDefinitions resourceDefinitions = new ResourceDefinitions();
 
-                if(customResourceDefinitionClass!=null && customResourceDefinitionClass.length() > 0){
-                    try {
-                        ICustomResourceDefinition customResourceDefinition = (ICustomResourceDefinition) Class.forName(customResourceDefinitionClass).newInstance();
-
-                        if(customResourceDefinition.getFragmentDefinitions()!=null) {
-                            resourceDefinitions.addFragmentDefinition(customResourceDefinition.getFragmentDefinitions());
+                if(customResourceDefinitions!=null && customResourceDefinitions.length > 0){
+                    for(CustomResourceDefinition crDef : customResourceDefinitions){
+                        if(Boolean.TRUE.equals(crDef.isDirectory())){
+                            resourceDefinitions.addResourceDirectory(crDef.getCustomResource());
+                            continue;
                         }
-                        if(customResourceDefinition.getFileDefinitions()!=null) {
-                            resourceDefinitions.addFileDefinitions(customResourceDefinition.getFileDefinitions());
+                        Definition fragmentDefinition = crDef.getCustomResourceFragmentDefinition();
+                        Definition fileDefinition = crDef.getCustomResourceFileDefinition();
+                        if(fragmentDefinition!=null){
+                            resourceDefinitions.addFragmentDefinition(fragmentDefinition);
+                        }else if (fileDefinition!=null){
+                            resourceDefinitions.addFileDefinition(fileDefinition);
                         }
-
-                    } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                        getLog().error("Unable to instantiate custom resource definition class", e);
                     }
                 }
 
                 mergeStrutsDefinitions(resourceDefinitions.getStrutsDefinitions());
                 mergeFragmentDefinitions(resourceDefinitions.getFragmentDefinitions());
                 mergeFileDefinitions(resourceDefinitions.getFileDefinitions());
+                mergeResourceDirectories(resourceDefinitions.getResourceDirectories());
 
                 //cleanup any leftover resource files
                 cleanUpResources(resourceDefinitions.getFileDefinitions());
@@ -178,6 +180,18 @@ public class FragmentMergeMojo extends AbstractMojo{
             getLog().error(io);
         }
         getLog().info("End of Fragment Merging Process");
+    }
+
+    private void mergeResourceDirectories(List<String> directories){
+        for(String directory : directories) {
+            try {
+                Path resourceDir = Paths.get(classesDirectory + File.separator + RESOURCES+File.separator+directory);
+                Path metaInfResourceDir = Paths.get(classesDirectory+META_INF_LOCATION+directory);
+                Files.move(resourceDir, metaInfResourceDir, StandardCopyOption.ATOMIC_MOVE);
+            } catch (IOException io) {
+                getLog().error(io);
+            }
+        }
     }
 
     private void mergeJawrResources(Definition jawrDefinition) throws IOException {

@@ -1,0 +1,11 @@
+package resources.testrule;
+
+
+rule "rule-test"
+    no-loop
+    salience 20
+    when
+        ab: true
+    then
+            System.out.println("a=true");
+end

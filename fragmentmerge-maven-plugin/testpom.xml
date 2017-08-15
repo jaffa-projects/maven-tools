@@ -24,7 +24,18 @@
         <plugin>
             <groupId>org.jaffa.maven.plugins</groupId>
             <artifactId>fragmentmerge-maven-plugin</artifactId>
-            <configuration/>
+            <configuration>
+              <customResourceDefinitions>
+                <customResourceDefinition>
+                  <directory>true</directory>
+                  <customResource>aop</customResource>
+                </customResourceDefinition>
+                <customResourceDefinition>
+                  <directory>true</directory>
+                  <customResource>rules</customResource>
+                </customResourceDefinition>
+              </customResourceDefinitions>
+            </configuration>
         </plugin>
     </plugins>
   </build>
