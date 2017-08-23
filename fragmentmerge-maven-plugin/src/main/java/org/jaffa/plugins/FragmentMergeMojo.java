@@ -186,8 +186,10 @@ public class FragmentMergeMojo extends AbstractMojo{
         for(String directory : directories) {
             try {
                 Path resourceDir = Paths.get(classesDirectory + File.separator + RESOURCES+File.separator+directory);
-                Path metaInfResourceDir = Paths.get(classesDirectory+META_INF_LOCATION+directory);
-                Files.move(resourceDir, metaInfResourceDir, StandardCopyOption.ATOMIC_MOVE);
+                if(resourceDir.toFile()!=null && resourceDir.toFile().exists()) {
+                    Path metaInfResourceDir = Paths.get(classesDirectory + META_INF_LOCATION + directory);
+                    Files.move(resourceDir, metaInfResourceDir, StandardCopyOption.ATOMIC_MOVE);
+                }
             } catch (IOException io) {
                 getLog().error(io);
             }
