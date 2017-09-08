@@ -121,7 +121,7 @@ public class ResourceDefinitions {
         fileDefinitions.add(new Definition(JMS_JNDI_CONFIG, JMS_JNDI_CONFIG+"."+XML, JMS_JNDI_CONFIG+"*."+XML, EMPTY_START_TAG, EMPTY_END_TAG));
 
         //ApplicationRules
-        fileDefinitions.add(new Definition(APPLICATION_RULES_, APPLICATION_RULES_+"."+PROPERTIES, "*"+APPLICATION_RULES_+"*."+PROPERTIES, EMPTY_START_TAG, EMPTY_END_TAG));
+        fileDefinitions.add(new Definition(APPLICATION_RULES_, APPLICATION_RULES+"."+PROPERTIES, "*"+APPLICATION_RULES+"*."+PROPERTIES, EMPTY_START_TAG, EMPTY_END_TAG));
 
         //roles
         fileDefinitions.add(new Definition(ROLES, ROLES+"."+XML, ROLES+"*."+XML, EMPTY_START_TAG, EMPTY_END_TAG));
