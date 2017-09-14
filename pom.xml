@@ -123,4 +123,10 @@
             </modules>
         </profile>
     </profiles>
+
+    <scm>
+        <connection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools</connection>
+        <developerConnection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools</developerConnection>
+    </scm>
+
 </project>
