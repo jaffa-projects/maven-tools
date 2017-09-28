@@ -51,6 +51,7 @@ package org.jaffa.plugins;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -188,6 +189,9 @@ public class FragmentMergeMojo extends AbstractMojo{
                 Path resourceDir = Paths.get(classesDirectory + File.separator + RESOURCES+File.separator+directory);
                 if(resourceDir.toFile()!=null && resourceDir.toFile().exists()) {
                     Path metaInfResourceDir = Paths.get(classesDirectory + META_INF_LOCATION + directory);
+                    if(Files.exists(metaInfResourceDir)){
+                        recursiveDirDelete(metaInfResourceDir);
+                    }
                     Files.move(resourceDir, metaInfResourceDir, StandardCopyOption.ATOMIC_MOVE);
                 }
             } catch (IOException io) {
@@ -308,6 +312,9 @@ public class FragmentMergeMojo extends AbstractMojo{
             if(!Files.exists(mergedResourceFile.getParent())){
                 mergedResourceFile.getParent().toFile().mkdirs();
             }
+            if(Files.exists(mergedResourceFile)){
+                mergedResourceFile.toFile().delete();
+            }
             Files.move(resourceFile, mergedResourceFile, StandardCopyOption.ATOMIC_MOVE);
         }
         getLog().debug(resourceFileExist? "Not doing fragment merge since Resource File "+ mergedFileName +" exist under resources folder" : "Resource file "+ mergedFileName +" doesnt exist under resource folder. Looking for fragments");
@@ -321,6 +328,22 @@ public class FragmentMergeMojo extends AbstractMojo{
                 Files.delete(resourceFile);
             }
         }
+    }
+
+    private void recursiveDirDelete(Path directory) throws IOException {
+        Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 }
 
