@@ -148,7 +148,10 @@ public class FragmentMergeMojo extends AbstractMojo{
             }
 
             if (targetDirectory.exists()) {
-
+                Path metaInfDir = Paths.get(classesDirectory + META_INF_LOCATION);
+                if(Files.exists(metaInfDir)) {
+                    recursiveDirDelete(metaInfDir);
+                }
                 fileFinder = FileFinder.getInstance(targetDirectory.toPath());
 
                 ResourceDefinitions resourceDefinitions = new ResourceDefinitions();
