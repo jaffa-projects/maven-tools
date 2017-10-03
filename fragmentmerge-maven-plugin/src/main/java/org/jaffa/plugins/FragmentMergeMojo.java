@@ -152,6 +152,12 @@ public class FragmentMergeMojo extends AbstractMojo{
                 if(Files.exists(metaInfDir)) {
                     recursiveDirDelete(metaInfDir);
                 }
+                if(sourceDirectory!=null && sourceDirectory.exists()) {
+                    Path metaInfSrcDir = Paths.get(sourceDirectory + META_INF_LOCATION);
+                    if(Files.exists(metaInfSrcDir)) {
+                        recursiveDirCopy(metaInfSrcDir, metaInfDir);
+                    }
+                }
                 fileFinder = FileFinder.getInstance(targetDirectory.toPath());
 
                 ResourceDefinitions resourceDefinitions = new ResourceDefinitions();
@@ -344,6 +350,24 @@ public class FragmentMergeMojo extends AbstractMojo{
             @Override
             public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
                 Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    private void recursiveDirCopy(final Path srcDirectory, final Path targetDirectory) throws IOException {
+        Files.walkFileTree(srcDirectory, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                Path targetPath = targetDirectory.resolve(srcDirectory.relativize(dir));
+                if(!Files.exists(targetPath)){
+                    Files.createDirectory(targetPath);
+                }
+                return FileVisitResult.CONTINUE;
+            }
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.copy(file, targetDirectory.resolve(srcDirectory.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
                 return FileVisitResult.CONTINUE;
             }
         });
