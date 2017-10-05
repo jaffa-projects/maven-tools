@@ -152,6 +152,10 @@ public class FragmentMergeMojo extends AbstractMojo{
                 if(Files.exists(metaInfDir)) {
                     recursiveDirDelete(metaInfDir);
                 }
+                Path testMetaInfDir = Paths.get(classesDirectory.getParent()+File.separator+"test-classes"+META_INF_LOCATION);
+                if(Files.exists(testMetaInfDir)) {
+                    recursiveDirDelete(testMetaInfDir);
+                }
                 if(sourceDirectory!=null && sourceDirectory.exists()) {
                     Path metaInfSrcDir = Paths.get(sourceDirectory + META_INF_LOCATION);
                     if(Files.exists(metaInfSrcDir)) {
@@ -198,9 +202,6 @@ public class FragmentMergeMojo extends AbstractMojo{
                 Path resourceDir = Paths.get(classesDirectory + File.separator + RESOURCES+File.separator+directory);
                 if(resourceDir.toFile()!=null && resourceDir.toFile().exists()) {
                     Path metaInfResourceDir = Paths.get(classesDirectory + META_INF_LOCATION + directory);
-                    if(Files.exists(metaInfResourceDir)){
-                        recursiveDirDelete(metaInfResourceDir);
-                    }
                     Files.move(resourceDir, metaInfResourceDir, StandardCopyOption.ATOMIC_MOVE);
                 }
             } catch (IOException io) {
@@ -265,6 +266,7 @@ public class FragmentMergeMojo extends AbstractMojo{
         if(definitionFiles!=null && definitionFiles.size() > 0) {
             for (Path definitionFile : definitionFiles) {
                 File resourceFile = new File(classesDirectory + META_INF_LOCATION + definitionFile.getFileName());
+                getLog().info("Definition File: "+resourceFile);
                 List<Path> resourceFilesList = new ArrayList<>();
                 resourceFilesList.add(definitionFile);
                 mergeFragmentResources(resourceFile, resourceFilesList, fileDefinition.getStartTag(), fileDefinition.getEndTag());
