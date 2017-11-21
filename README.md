@@ -1,7 +1,7 @@
 # maven-tools 
 Maven Plugins for Jaffa Framework
 
-### Plugins 
+### Plugins  
 
 ```sh
 1. Jaffa Fragment Merge Plugin
