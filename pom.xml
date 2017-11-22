@@ -1,14 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <modules>
-        <module>patterngenerator</module>
-    </modules>
 
     <parent>
         <groupId>com.tapestrysolutions</groupId>
         <artifactId>tapestry-parent</artifactId>
-        <version>2.0.8</version>
+        <version>2.0.9</version>
     </parent>
 	
     <groupId>org.jaffa.maven</groupId>
@@ -17,7 +14,10 @@
     <packaging>pom</packaging>
     <name>Jaffa Maven Plugins</name>
 
-    <url>https://github.com/jaffa-projects/jaffa-framework</url>
+    <modules>
+        <module>fragmentmerge-maven-plugin</module>
+        <module>patterngenerator</module>
+    </modules>
 
     <properties>
         <version.maven.plugin.annotations>3.3</version.maven.plugin.annotations>
@@ -117,24 +117,10 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>normal</id>
-            <activation>
-                <property>
-                    <name>!minimalistic</name>
-                </property>
-            </activation>
-            <modules>
-                <module>fragmentmerge-maven-plugin</module>
-            </modules>
-        </profile>
-    </profiles>
 
     <scm>
-        <connection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools</connection>
-        <developerConnection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools</developerConnection>
+        <connection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools.git</connection>
+        <developerConnection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools.git</developerConnection>
     </scm>
 
 </project>
