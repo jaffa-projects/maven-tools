@@ -106,7 +106,7 @@ public class PatternGeneratorTest {
      * to be found.
      * @throws Exception
      */
-    @Test
+    @Ignore
     public void testMainPropsFileSelfContained() throws Exception {
         // TODO replace the hard-coded paths with something appropriate for your
         // integration test
@@ -163,7 +163,7 @@ public class PatternGeneratorTest {
      * @throws PatternGeneratorException
      * @throws MalformedURLException
      */
-    @Test
+    @Ignore
     public void testDetermineFileToWriteJava()
             throws PatternGeneratorException, IOException {
         PatternGenerator generator = getPatternGenerator();
@@ -182,7 +182,7 @@ public class PatternGeneratorTest {
      * @throws PatternGeneratorException
      * @throws MalformedURLException
      */
-    @Test
+    @Ignore
     public void testDetermineFileToWriteSql()
             throws PatternGeneratorException, IOException {
         PatternGenerator generator = getPatternGenerator();
