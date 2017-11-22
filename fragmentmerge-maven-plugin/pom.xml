@@ -12,8 +12,6 @@
   <packaging>maven-plugin</packaging>
   <name>fragmentmerge-maven-plugin</name>
 
-  <url>https://github.com/jaffa-projects/jaffa-framework</url>
-
   <properties>
     <maven.min.version>3.2.2</maven.min.version>
   </properties>
