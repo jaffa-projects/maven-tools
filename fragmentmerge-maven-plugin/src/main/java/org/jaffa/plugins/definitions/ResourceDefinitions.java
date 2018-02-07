@@ -93,7 +93,7 @@ public class ResourceDefinitions {
         fragmentDefinitions.add(new Definition(COMPONENT_TILES_DEFS, TILE_DEFS+"."+XML, COMPONENT_TILES_DEFS+"*."+XFRAGMENT, STRUTS_TILE_DEFS_START_TAG, STRUTS_TILE_DEFS_END_TAG));
 
         //ApplicationResources
-        fragmentDefinitions.add(new Definition(APPLICATION_RESOURCES, APPLICATION_RESOURCES+"*."+PROPERTIES, "*"+APPLICATION_RESOURCES+"*."+PFRAGMENT, APP_RESOURCES_START_TAG, APP_RESOURCES_END_TAG));
+        fragmentDefinitions.add(new Definition(APPLICATION_RESOURCES, APPLICATION_RESOURCES+"."+PROPERTIES, "*"+APPLICATION_RESOURCES+"*."+PFRAGMENT, APP_RESOURCES_START_TAG, APP_RESOURCES_END_TAG));
 
         //Dwr
         fragmentDefinitions.add(new Definition(DWR, DWR+"."+XML, DWR+"*."+XFRAGMENT, DWR_START_TAG, DWR_END_TAG));
