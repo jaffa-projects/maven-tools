@@ -1,0 +1,3 @@
+<business-function name="Reports.Core.FileManager">
+        <description>Able to run the FileManager component</description>
+</business-function>

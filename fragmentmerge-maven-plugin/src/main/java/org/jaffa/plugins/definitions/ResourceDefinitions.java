@@ -116,6 +116,9 @@ public class ResourceDefinitions {
         //soa-events
         fragmentDefinitions.add(new Definition(SOA_EVENTS, SOA_EVENTS+"."+XML, SOA_EVENTS+"*."+XFRAGMENT, SOA_EVENTS_START_TAG, SOA_EVENTS_END_TAG));
 
+        //business-functions
+        fragmentDefinitions.add(new Definition(BUSINESS_FUNCTIONS_DEFINITION, BUSINESS_FUNCTIONS+"."+XML, BUSINESS_FUNCTIONS_DEFINITION +"*."+XFRAGMENT, BUSINESS_FUNCTIONS_START_TAG, BUSINESS_FUNCTIONS_END_TAG));
+
 
         //jms-jndi-config
         fileDefinitions.add(new Definition(JMS_JNDI_CONFIG, JMS_JNDI_CONFIG+"."+XML, JMS_JNDI_CONFIG+"*."+XML, EMPTY_START_TAG, EMPTY_END_TAG));
@@ -125,9 +128,6 @@ public class ResourceDefinitions {
 
         //roles
         fileDefinitions.add(new Definition(ROLES, ROLES+"."+XML, ROLES+"*."+XML, EMPTY_START_TAG, EMPTY_END_TAG));
-
-        //business-functions
-        fileDefinitions.add(new Definition(BUSINESS_FUNCTIONS, BUSINESS_FUNCTIONS+"."+XML, BUSINESS_FUNCTIONS+"*."+XML, EMPTY_START_TAG, EMPTY_END_TAG));
 
         //navigation
         fileDefinitions.add(new Definition(NAVIGATION, NAVIGATION+"."+XML, NAVIGATION+"*."+XML, EMPTY_START_TAG, EMPTY_END_TAG));
@@ -299,6 +299,17 @@ public class ResourceDefinitions {
         public static String COMPONENTS_END_TAG = "\n</components>";
 
         /**
+         * Default start tag for merged business-functions.xml
+         */
+        public static String BUSINESS_FUNCTIONS_START_TAG = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+                "<business-functions>\n";
+        /**
+         * Default end tag for merged business-functions.xml
+         */
+        public static String BUSINESS_FUNCTIONS_END_TAG = "\n</business-functions>\n";
+
+
+        /**
          * Default start tag for merged jaffa-transaction-config.xml, jaffa-messaging-config.xml, jaffa-scheduler-config.xml
          */
         public static String JAFFA_CONFIG_START_TAG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -353,6 +364,9 @@ public class ResourceDefinitions {
 
         //Business Functions
         public static final String BUSINESS_FUNCTIONS = "business-functions";
+
+        //Business Functions XFrag
+        public static final String BUSINESS_FUNCTIONS_DEFINITION = "BusinessFunctions";
 
         //Jaffa Transaction Config
         public static final String JAFFA_TRANSACTION_CONFIG = "jaffa-transaction-config";
