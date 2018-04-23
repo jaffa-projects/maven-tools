@@ -12,7 +12,7 @@
 	
     <groupId>org.jaffa.maven</groupId>
     <artifactId>maven-tools</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Jaffa Maven Plugins</name>
 
@@ -120,7 +120,7 @@
     <scm>
         <connection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools.git</connection>
         <developerConnection>scm:git:https://tapljs482.tapestry.local/jaffa/maven-tools.git</developerConnection>
-      <tag>maven-tools-1.0.1</tag>
+      <tag>HEAD</tag>
   </scm>
 
 </project>
