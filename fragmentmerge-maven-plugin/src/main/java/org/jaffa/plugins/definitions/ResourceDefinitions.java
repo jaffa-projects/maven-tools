@@ -132,6 +132,10 @@ public class ResourceDefinitions {
         //navigation
         fileDefinitions.add(new Definition(NAVIGATION, NAVIGATION+"."+XML, NAVIGATION+"*."+XML, EMPTY_START_TAG, EMPTY_END_TAG));
 
+        //locale
+        fileDefinitions.add(new Definition(LOCALE, LOCALE+"."+PROPERTIES, LOCALE+"*."+PROPERTIES, EMPTY_START_TAG, EMPTY_END_TAG));
+
+
     }
 
     public List<Definition> getStrutsDefinitions(){
@@ -411,6 +415,9 @@ public class ResourceDefinitions {
 
         //ComponentTilesDefinitions
         public static final String COMPONENT_DEFINITIONS = "ComponentDefinition";
+
+        //LOCALE
+        public static final String LOCALE = "locale";
 
         //Resources Folder
         public static final String RESOURCES = "resources";
